@@ -11,7 +11,6 @@
 	<groupId>com.jeraych.psrm</groupId>
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>PSRM</name>
 	<description>Personal Study Resource Manager</description>
 	<url/>
 	<licenses>
