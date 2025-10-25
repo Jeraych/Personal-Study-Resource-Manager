@@ -13,6 +13,6 @@
       <TextField fx:id="titleField" layoutX="271.0" layoutY="63.0" prefHeight="25.0" prefWidth="315.0" />
       <Text layoutX="232.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title: " wrappingWidth="35.330078125" />
       <TextArea fx:id="contentArea" layoutX="232.0" layoutY="101.0" prefHeight="225.0" prefWidth="353.0" />
-      <Button fx:id="saveButton" layoutX="484.0" layoutY="338.0" mnemonicParsing="false" onAction="#saveNote" prefHeight="50.0" prefWidth="101.0" text="Save" />
+      <Button fx:id="saveButton" layoutX="484.0" layoutY="338.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="50.0" prefWidth="101.0" text="Save" />
    </children>
 </AnchorPane>
