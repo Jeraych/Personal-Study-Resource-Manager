@@ -28,3 +28,7 @@ replay_pid*
 
 # Database
 data/
+
+# target
+javafx-client/target
+backend/target
