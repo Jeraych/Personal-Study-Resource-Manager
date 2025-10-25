@@ -25,3 +25,10 @@ replay_pid*
 
 # Editor settings
 .idea
+
+# Database
+data/
+
+# target
+javafx-client/target
+backend/target
