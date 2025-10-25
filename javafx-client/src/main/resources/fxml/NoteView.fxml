@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jeraych.psrm.client.controller.NoteViewController">
    <children>
-      <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="374.0" prefWidth="200.0" />
-      <TextField layoutX="271.0" layoutY="63.0" prefHeight="25.0" prefWidth="315.0" />
+      <ScrollPane fx:id="notePane" layoutX="14.0" layoutY="14.0" prefHeight="374.0" prefWidth="200.0" />
+      <TextField fx:id="titleField" layoutX="271.0" layoutY="63.0" prefHeight="25.0" prefWidth="315.0" />
       <Text layoutX="232.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title: " wrappingWidth="35.330078125" />
-      <TextArea layoutX="232.0" layoutY="101.0" prefHeight="225.0" prefWidth="353.0" />
-      <Button layoutX="484.0" layoutY="338.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="101.0" text="Save" />
+      <TextArea fx:id="contentArea" layoutX="232.0" layoutY="101.0" prefHeight="225.0" prefWidth="353.0" />
+      <Button fx:id="saveButton" layoutX="484.0" layoutY="338.0" mnemonicParsing="false" onAction="#saveNote" prefHeight="50.0" prefWidth="101.0" text="Save" />
    </children>
 </AnchorPane>
