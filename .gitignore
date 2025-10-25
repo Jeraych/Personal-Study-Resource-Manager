@@ -25,6 +25,3 @@ replay_pid*
 
 # Editor settings
 .idea
-
-# SQLite database
-/backend/db/
