@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,10 +9,10 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jeraych.psrm.client.controller.NoteViewController">
    <children>
-      <ScrollPane fx:id="notePane" layoutX="14.0" layoutY="14.0" prefHeight="374.0" prefWidth="200.0" />
       <TextField fx:id="titleField" layoutX="271.0" layoutY="63.0" prefHeight="25.0" prefWidth="315.0" />
       <Text layoutX="232.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title: " wrappingWidth="35.330078125" />
       <TextArea fx:id="contentArea" layoutX="232.0" layoutY="101.0" prefHeight="225.0" prefWidth="353.0" />
       <Button fx:id="saveButton" layoutX="484.0" layoutY="338.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="50.0" prefWidth="101.0" text="Save" />
+      <ListView fx:id="noteListView" layoutX="14.0" layoutY="14.0" prefHeight="376.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
