@@ -15,6 +15,7 @@ public class NoteViewController {
   @FXML private TextArea contentArea;
   @FXML private Button saveButton;
   @FXML private Button newButton;
+  @FXML private Button deleteButton;
 
   private final NoteService noteService = new NoteService();
   private Note selectedNote;
@@ -28,8 +29,8 @@ public class NoteViewController {
   @FXML
   public void handleNew() {
     selectedNote = null;
-    titleField.clear();
-    contentArea.clear();
+    deleteButton.setVisible(false);
+    clearFields();
   }
 
   @FXML
@@ -38,9 +39,17 @@ public class NoteViewController {
       String title = titleField.getText();
       String content = contentArea.getText();
       noteService.saveNote(title, content);
+      clearFields();
     } else {
       noteService.editNote(selectedNote);
     }
+    loadNotes();
+  }
+
+  @FXML
+  public void handleDelete() throws Exception {
+    noteService.deleteNote(selectedNote);
+    selectedNote = null;
     loadNotes();
   }
 
@@ -67,5 +76,11 @@ public class NoteViewController {
   public void loadNote(Note note) {
     titleField.setText(note.getTitle());
     contentArea.setText(note.getContent());
+    deleteButton.setVisible(true);
+  }
+
+  public void clearFields() {
+    titleField.clear();
+    contentArea.clear();
   }
 }

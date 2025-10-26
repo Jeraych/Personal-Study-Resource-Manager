@@ -45,9 +45,20 @@ public class NoteService {
     String json = objectMapper.writeValueAsString(note);
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(BASE_URL))
+            .uri(URI.create(BASE_URL + "/" + note.getId()))
             .header("Content-Type", "application/json")
             .PUT(HttpRequest.BodyPublishers.ofString(json))
+            .build();
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+  }
+
+  public void deleteNote(Note note) throws Exception {
+    ObjectMapper objectMapper = new ObjectMapper();
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(BASE_URL + "/" + note.getId()))
+            .header("Content-Type", "application/json")
+            .DELETE()
             .build();
     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
   }
