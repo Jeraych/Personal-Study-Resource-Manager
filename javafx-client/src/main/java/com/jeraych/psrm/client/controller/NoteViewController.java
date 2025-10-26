@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.util.List;
 
 public class NoteViewController {
@@ -13,6 +14,7 @@ public class NoteViewController {
   @FXML private TextField titleField;
   @FXML private TextArea contentArea;
   @FXML private Button saveButton;
+  @FXML private Button newButton;
 
   private final NoteService noteService = new NoteService();
   private Note selectedNote;
@@ -21,6 +23,13 @@ public class NoteViewController {
   public void initialize() throws Exception {
     // initialize note list
     loadNotes();
+  }
+
+  @FXML
+  public void handleNew() {
+    selectedNote = null;
+    titleField.clear();
+    contentArea.clear();
   }
 
   @FXML
