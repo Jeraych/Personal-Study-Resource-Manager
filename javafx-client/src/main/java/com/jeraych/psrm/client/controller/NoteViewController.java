@@ -19,7 +19,7 @@ public class NoteViewController {
   @FXML
   public void initialize() throws Exception {
     // initialize note list
-    loadNotes(noteService.getAllNotes());
+    loadNotes();
   }
 
   @FXML
@@ -27,10 +27,11 @@ public class NoteViewController {
     String title = titleField.getText();
     String content = contentArea.getText();
     noteService.saveNote(title, content);
-    loadNotes(noteService.getAllNotes());
+    loadNotes();
   }
 
-  public void loadNotes(List<Note> noteList) {
+  public void loadNotes() throws Exception {
+    List<Note> noteList = noteService.getAllNotes();
     noteListView.setItems(FXCollections.observableArrayList(noteList));
     noteListView.setCellFactory(listView -> new ListCell<>() {
       @Override
