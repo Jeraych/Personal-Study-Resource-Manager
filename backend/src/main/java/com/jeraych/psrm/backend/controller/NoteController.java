@@ -1,7 +1,7 @@
 package com.jeraych.psrm.backend.controller;
 
 import com.jeraych.psrm.backend.model.Note;
-import com.jeraych.psrm.backend.repository.NoteRepository;
+import com.jeraych.psrm.backend.service.NoteService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,19 +10,29 @@ import java.util.List;
 @RequestMapping("/api/notes")
 @CrossOrigin
 public class NoteController {
-  private final NoteRepository noteRepository;
+  private final NoteService noteService;
 
-  public NoteController(NoteRepository noteRepository) {
-    this.noteRepository = noteRepository;
+  public NoteController(NoteService noteService) {
+    this.noteService = noteService;
   }
 
   @GetMapping
-  public List<Note> findAllNotes() {
-    return noteRepository.findAll();
+  public List<Note> getAllNotes() {
+    return noteService.findAllNotes();
   }
 
   @PostMapping
-  public Note saveNote(@RequestBody Note note) {
-    return noteRepository.save(note);
+  public Note createNote(@RequestBody Note note) {
+    return noteService.saveNote(note);
+  }
+
+  @PutMapping("/{id}")
+  public Note updateNote(@PathVariable long id, @RequestBody Note note) {
+    return noteService.updateNoteById(id, note);
+  }
+
+  @DeleteMapping("/{id}")
+  public void deleteNote(@PathVariable long id) {
+    noteService.deleteNoteById(id);
   }
 }
