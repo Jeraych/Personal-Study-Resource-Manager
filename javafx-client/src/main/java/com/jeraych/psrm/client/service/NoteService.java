@@ -2,6 +2,7 @@ package com.jeraych.psrm.client.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.jeraych.psrm.client.model.Note;
 
 import java.net.URI;
@@ -37,5 +38,28 @@ public class NoteService {
     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
     ObjectMapper objectMapper = new ObjectMapper();
     return objectMapper.readValue(response.body(), new TypeReference<List<Note>>() {});
+  }
+
+  public void editNote(Note note) throws Exception {
+    ObjectMapper objectMapper = new ObjectMapper();
+    String json = objectMapper.writeValueAsString(note);
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(BASE_URL + "/" + note.getId()))
+            .header("Content-Type", "application/json")
+            .PUT(HttpRequest.BodyPublishers.ofString(json))
+            .build();
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+  }
+
+  public void deleteNote(Note note) throws Exception {
+    ObjectMapper objectMapper = new ObjectMapper();
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(BASE_URL + "/" + note.getId()))
+            .header("Content-Type", "application/json")
+            .DELETE()
+            .build();
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
   }
 }
