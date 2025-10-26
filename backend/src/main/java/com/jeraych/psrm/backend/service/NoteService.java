@@ -26,7 +26,7 @@ public class NoteService {
     Note update = noteRepository.findById(id);
     update.setTitle(note.getTitle());
     update.setContent(note.getContent());
-    return noteRepository.save(note);
+    return noteRepository.save(update);
   }
 
   public void deleteNoteById(long id) {
