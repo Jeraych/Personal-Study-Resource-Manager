@@ -40,12 +40,13 @@ public class NoteService {
     return objectMapper.readValue(response.body(), new TypeReference<List<Note>>() {});
   }
 
-  public void editNote(Note note) throws Exception {
+  public void editNote(long id, String title, String content) throws Exception {
+    Note note = new Note(title,content);
     ObjectMapper objectMapper = new ObjectMapper();
     String json = objectMapper.writeValueAsString(note);
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(BASE_URL + "/" + note.getId()))
+            .uri(URI.create(BASE_URL + "/" + id))
             .header("Content-Type", "application/json")
             .PUT(HttpRequest.BodyPublishers.ofString(json))
             .build();

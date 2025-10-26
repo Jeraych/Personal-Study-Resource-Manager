@@ -31,25 +31,38 @@ public class NoteViewController {
     selectedNote = null;
     deleteButton.setVisible(false);
     clearFields();
+    noteListView.getSelectionModel().clearSelection();
   }
 
   @FXML
   public void handleSave() throws Exception {
     if (selectedNote == null) {
+      // save a new note
       String title = titleField.getText();
       String content = contentArea.getText();
       noteService.saveNote(title, content);
-      clearFields();
+      loadNotes();
+      noteListView.getSelectionModel().selectLast();
+      selectedNote = noteListView.getSelectionModel().getSelectedItem();
+      deleteButton.setVisible(true);
     } else {
-      noteService.editNote(selectedNote);
+      // edit a current note
+      int selectedIndex = 0;
+      String title = titleField.getText();
+      String content = contentArea.getText();
+      noteService.editNote(selectedNote.getId(), title, content);
+      selectedIndex = noteListView.getSelectionModel().getSelectedIndex();
+      loadNotes();
+      noteListView.getSelectionModel().select(selectedIndex);
     }
-    loadNotes();
   }
 
   @FXML
   public void handleDelete() throws Exception {
     noteService.deleteNote(selectedNote);
     selectedNote = null;
+    clearFields();
+    deleteButton.setVisible(false);
     loadNotes();
   }
 
