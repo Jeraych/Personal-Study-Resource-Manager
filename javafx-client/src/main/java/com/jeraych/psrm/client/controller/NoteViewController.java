@@ -48,7 +48,9 @@ public class NoteViewController {
     } else {
       // edit a current note
       int selectedIndex = 0;
-      noteService.editNote(selectedNote);
+      String title = titleField.getText();
+      String content = contentArea.getText();
+      noteService.editNote(selectedNote.getId(), title, content);
       selectedIndex = noteListView.getSelectionModel().getSelectedIndex();
       loadNotes();
       noteListView.getSelectionModel().select(selectedIndex);
