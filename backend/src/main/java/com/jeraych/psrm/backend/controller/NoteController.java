@@ -33,4 +33,9 @@ public class NoteController {
     update.setContent(note.getContent());
     return noteRepository.save(update);
   }
+
+  @DeleteMapping("/{id}")
+  public void deleteNote(@PathVariable long id) {
+    noteRepository.deleteById(id);
+  }
 }
