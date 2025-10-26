@@ -15,6 +15,7 @@ public class NoteViewController {
   @FXML private Button saveButton;
 
   private final NoteService noteService = new NoteService();
+  private Note selectedNote;
 
   @FXML
   public void initialize() throws Exception {
@@ -24,9 +25,13 @@ public class NoteViewController {
 
   @FXML
   public void handleSave() throws Exception {
-    String title = titleField.getText();
-    String content = contentArea.getText();
-    noteService.saveNote(title, content);
+    if (selectedNote == null) {
+      String title = titleField.getText();
+      String content = contentArea.getText();
+      noteService.saveNote(title, content);
+    } else {
+      noteService.editNote(selectedNote);
+    }
     loadNotes();
   }
 
@@ -42,6 +47,7 @@ public class NoteViewController {
         } else {
           setText(item.getTitle());
           setOnMouseClicked(event -> {
+            selectedNote = item;
             loadNote(item);
           });
         }
