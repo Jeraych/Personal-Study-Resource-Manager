@@ -30,7 +30,7 @@ public class NoteViewController {
     loadNotes(noteService.getAllNotes());
   }
 
-  public void loadNotes(List<Note> noteList) throws Exception {
+  public void loadNotes(List<Note> noteList) {
     noteListView.setItems(FXCollections.observableArrayList(noteList));
     noteListView.setCellFactory(listView -> new ListCell<>() {
       @Override
@@ -40,8 +40,16 @@ public class NoteViewController {
           setText(null);
         } else {
           setText(item.getTitle());
+          setOnMouseClicked(event -> {
+            loadNote(item);
+          });
         }
       }
     });
+  }
+
+  public void loadNote(Note note) {
+    titleField.setText(note.getTitle());
+    contentArea.setText(note.getContent());
   }
 }
