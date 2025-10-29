@@ -11,9 +11,9 @@ public class PsrmApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PsrmApplication.class, args);
-		Application.launch(App.class);
-		Platform.exit();
-		System.exit(0);
+//		Application.launch(App.class);
+//		Platform.exit();
+//		System.exit(0);
 	}
 
 }
