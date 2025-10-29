@@ -1,12 +1,13 @@
 package com.jeraych.psrm.backend.DTO;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class NoteDTO {
   private long note_id;
   private String note_title;
   private String note_content;
-  private Set<Long> tagIds;
+  private Set<Long> tagIds =  new HashSet<>();
 
   public NoteDTO() {}
 

@@ -57,7 +57,7 @@ public class NoteService {
     ObjectMapper objectMapper = new ObjectMapper();
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(BASE_URL + "/" + note.getId()))
+            .uri(URI.create(BASE_URL + "/" + note.getNote_id()))
             .header("Content-Type", "application/json")
             .DELETE()
             .build();

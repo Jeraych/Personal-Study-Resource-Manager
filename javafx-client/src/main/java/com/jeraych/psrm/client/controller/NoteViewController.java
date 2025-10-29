@@ -50,7 +50,7 @@ public class NoteViewController {
       int selectedIndex = 0;
       String title = titleField.getText();
       String content = contentArea.getText();
-      noteService.editNote(selectedNote.getId(), title, content);
+      noteService.editNote(selectedNote.getNote_id(), title, content);
       selectedIndex = noteListView.getSelectionModel().getSelectedIndex();
       loadNotes();
       noteListView.getSelectionModel().select(selectedIndex);
@@ -76,7 +76,7 @@ public class NoteViewController {
         if (empty || item == null) {
           setText(null);
         } else {
-          setText(item.getTitle());
+          setText(item.getNote_title());
           setOnMouseClicked(event -> {
             selectedNote = item;
             loadNote(item);
@@ -87,8 +87,8 @@ public class NoteViewController {
   }
 
   public void loadNote(Note note) {
-    titleField.setText(note.getTitle());
-    contentArea.setText(note.getContent());
+    titleField.setText(note.getNote_title());
+    contentArea.setText(note.getNote_content());
     deleteButton.setVisible(true);
   }
 
