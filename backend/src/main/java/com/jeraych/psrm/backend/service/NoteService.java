@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,16 +31,24 @@ public class NoteService {
     return noteDtos;
   }
 
-  public NoteDTO saveNote(Note note) {
-    noteRepository.save(note);
-    return Note.toDTO(note);
+  public NoteDTO saveNote(NoteDTO note) {
+    Note noteEntity = Note.toEntity(note);
+    for (Long tagId : note.getTagIds()) {
+      Optional<Tag> tagEntity = tagRepository.findById(tagId);
+      tagEntity.ifPresent(noteEntity::addTag);
+    }
+    noteRepository.save(noteEntity);
+    return Note.toDTO(noteEntity);
   }
 
-  public NoteDTO updateNoteById(long id, Note note) {
+  public NoteDTO updateNoteById(long id, NoteDTO note) {
     Note update = noteRepository.findById(id);
-    update.setTitle(note.getTitle());
-    update.setContent(note.getContent());
-    update.setTags(note.getTags());
+    update.setTitle(note.getNote_title());
+    update.setContent(note.getNote_content());
+    for (Long tagId : note.getTagIds()) {
+      Optional<Tag> tagEntity = tagRepository.findById(tagId);
+      tagEntity.ifPresent(update::addTag);
+    }
     noteRepository.save(update);
     return Note.toDTO(update);
   }

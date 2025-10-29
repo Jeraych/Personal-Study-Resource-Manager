@@ -55,11 +55,26 @@ public class Tag {
     this.notes = notes;
   }
 
+  public void addNote(Note note) {
+    notes.add(note);
+  }
+
+  public void removeNote(Note note) {
+    notes.remove(note);
+  }
+
   public static TagDTO toDTO(Tag tag) {
     TagDTO dto = new TagDTO();
     dto.setTag_id(tag.getId());
     dto.setTag_name(tag.getName());
     dto.setNoteIds(tag.getNotes().stream().map(Note::getId).collect(Collectors.toSet()));
     return dto;
+  }
+
+  public static Tag toEntity(TagDTO dto) {
+    Tag tag = new Tag();
+    tag.setId(dto.getTag_id());
+    tag.setName(dto.getTag_name());
+    return tag;
   }
 }

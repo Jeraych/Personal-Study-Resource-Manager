@@ -17,12 +17,12 @@ public class NoteController {
   }
 
   @PostMapping
-  public NoteDTO createNote(@RequestBody Note note) {
+  public NoteDTO createNote(@RequestBody NoteDTO note) {
     return noteService.saveNote(note);
   }
 
   @PutMapping("/{id}")
-  public NoteDTO updateNote(@PathVariable long id, @RequestBody Note note) {return noteService.updateNoteById(id, note);}
+  public NoteDTO updateNote(@PathVariable long id, @RequestBody NoteDTO note) {return noteService.updateNoteById(id, note);}
 
   @DeleteMapping("/{id}")
   public void deleteNote(@PathVariable long id) {

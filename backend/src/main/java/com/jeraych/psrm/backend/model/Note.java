@@ -87,4 +87,12 @@ public class Note {
     dto.setTagIds(note.getTags().stream().map(Tag::getId).collect(Collectors.toSet()));
     return dto;
   }
+
+  public static Note toEntity(NoteDTO dto) {
+    Note note = new Note();
+    note.setId(dto.getNote_id());
+    note.setTitle(dto.getNote_title());
+    note.setContent(dto.getNote_content());
+    return note;
+  }
 }
