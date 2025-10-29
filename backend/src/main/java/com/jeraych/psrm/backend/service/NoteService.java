@@ -49,8 +49,7 @@ public class NoteService {
   }
 
   public List<NoteDTO> findAllNotesByTagId(long id) {
-    noteRepository.findByTagsId(id);
-    List<Note> notes = noteRepository.findAll();
+    List<Note> notes = noteRepository.findByTagsId(id);
     List<NoteDTO> noteDtos = new ArrayList<>();
     for (Note note : notes) {
       noteDtos.add(Note.toDTO(note));
