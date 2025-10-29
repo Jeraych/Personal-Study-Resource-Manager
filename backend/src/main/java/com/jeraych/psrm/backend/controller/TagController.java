@@ -15,10 +15,10 @@ public class TagController {
   public TagController(TagService tagService) {this.tagService = tagService;}
 
   @PostMapping
-  public TagDTO createTag(@RequestBody Tag tag) {return tagService.saveTag(tag);}
+  public TagDTO createTag(@RequestBody TagDTO tag) {return tagService.saveTag(tag);}
 
   @PutMapping("/{id}")
-  public TagDTO updateTag(@RequestBody Tag tag, @PathVariable long id) {return tagService.updateTagById(id, tag);}
+  public TagDTO updateTag(@RequestBody TagDTO tag, @PathVariable long id) {return tagService.updateTagById(id, tag);}
 
   @DeleteMapping("/{id}")
   public void deleteTag(@PathVariable long id) {tagService.deleteTagById(id);}
