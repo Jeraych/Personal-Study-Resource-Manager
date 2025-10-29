@@ -2,7 +2,6 @@ package com.jeraych.psrm.client.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import com.jeraych.psrm.client.model.Note;
 
 import java.net.URI;
