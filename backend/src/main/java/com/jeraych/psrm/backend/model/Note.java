@@ -1,9 +1,9 @@
 package com.jeraych.psrm.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Note {
@@ -13,6 +13,14 @@ public class Note {
 
   private String title;
   private String content;
+
+  @ManyToMany(cascade = {CascadeType.MERGE ,CascadeType.PERSIST})
+  @JoinTable(
+          name = "note_tags",
+          joinColumns = @JoinColumn(name = "note_id"),
+          inverseJoinColumns = @JoinColumn(name = "tag_id")
+  )
+  private Set<Tag> tags = new HashSet<>();
 
   public Note(String title, String content) {
     this.title = title;
@@ -43,5 +51,23 @@ public class Note {
 
   public void setContent(String content) {
     this.content = content;
+  }
+
+  public Set<Tag> getTags() {
+    return tags;
+  }
+
+  public void setTags(Set<Tag> tags) {
+    this.tags = tags;
+  }
+
+  public void addTag(Tag tag) {
+    this.tags.add(tag);
+    tag.getNotes().add(this);
+  }
+
+  public void removeTag(Tag tag) {
+    this.tags.remove(tag);
+    tag.getNotes().remove(this);
   }
 }
