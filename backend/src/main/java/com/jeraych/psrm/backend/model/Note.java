@@ -2,10 +2,12 @@ package com.jeraych.psrm.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.jeraych.psrm.backend.DTO.NoteDTO;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @JsonIdentityInfo(
@@ -75,5 +77,14 @@ public class Note {
   public void removeTag(Tag tag) {
     this.tags.remove(tag);
     tag.getNotes().remove(this);
+  }
+
+  public NoteDTO toDTO(Note note) {
+    NoteDTO dto = new NoteDTO();
+    dto.setNote_id(note.getId());
+    dto.setNote_title(note.getTitle());
+    dto.setNote_content(note.getContent());
+    dto.setTagIds(note.getTags().stream().map(Tag::getId).collect(Collectors.toSet()));
+    return dto;
   }
 }
