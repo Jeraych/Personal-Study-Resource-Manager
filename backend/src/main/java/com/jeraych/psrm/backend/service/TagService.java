@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TagService {
@@ -18,22 +19,28 @@ public class TagService {
     tagRepository.findAll();
     List<TagDTO> tagDtos = new ArrayList<>();
     for (Tag tag : tagRepository.findAll()) {
-      tagDtos.add(tag.toDTO(tag));
+      tagDtos.add(Tag.toDTO(tag));
     }
     return tagDtos;
   }
 
   public TagDTO saveTag(Tag tag) {
     tagRepository.save(tag);
-    return tag.toDTO(tag);
+    return Tag.toDTO(tag);
   }
 
   public TagDTO updateTagById(long id, Tag tag) {
     Tag update = tagRepository.findById(id);
     update.setName(tag.getName());
     tagRepository.save(update);
-    return tag.toDTO(update);
+    return Tag.toDTO(update);
   }
 
   public void deleteTagById(long id) {tagRepository.deleteById(id);}
+
+  public List<TagDTO> getTagsByIds(List<Long> id) {
+    return tagRepository.findAllById(id).stream()
+            .map(Tag::toDTO)
+            .collect(Collectors.toList());
+  }
 }

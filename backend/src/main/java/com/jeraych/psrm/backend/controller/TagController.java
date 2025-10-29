@@ -14,9 +14,6 @@ public class TagController {
 
   public TagController(TagService tagService) {this.tagService = tagService;}
 
-  @GetMapping
-  public List<TagDTO> findAllTags() {return tagService.findAllTags();}
-
   @PostMapping
   public TagDTO createTag(@RequestBody Tag tag) {return tagService.saveTag(tag);}
 
@@ -25,4 +22,12 @@ public class TagController {
 
   @DeleteMapping("/{id}")
   public void deleteTag(@PathVariable long id) {tagService.deleteTagById(id);}
+
+  @GetMapping
+  public List<TagDTO> findAllTagsByIds(@RequestParam(required = false) List<Long> id) {
+    if (id == null) {
+      return tagService.findAllTags();
+    }
+    return tagService.getTagsByIds(id);
+  }
 }

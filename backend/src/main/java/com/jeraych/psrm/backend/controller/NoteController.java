@@ -16,9 +16,6 @@ public class NoteController {
     this.noteService = noteService;
   }
 
-  @GetMapping
-  public List<NoteDTO> getAllNotes() {return noteService.findAllNotes();}
-
   @PostMapping
   public NoteDTO createNote(@RequestBody Note note) {
     return noteService.saveNote(note);
@@ -35,8 +32,16 @@ public class NoteController {
   @GetMapping("/{tag_id}")
   public List<NoteDTO> findByTagId(@PathVariable long tag_id) { return noteService.findAllNotesByTagId(tag_id); }
 
-  @PutMapping("/{id}/{tag_id}")
+  @PostMapping("/{id}/{tag_id}")
   public NoteDTO updateNoteWithTag(@PathVariable long id, @PathVariable long tag_id) {
-    return noteService.updateNoteWithTagId(id, tag_id);
+    return noteService.addTagToNote(id, tag_id);
+  }
+
+  @GetMapping
+  public List<NoteDTO> findAllNotesByIds(@RequestParam(required = false) List<Long> id) {
+    if (id == null) {
+      return noteService.findAllNotes();
+    }
+    return noteService.getNotesByIds(id);
   }
 }

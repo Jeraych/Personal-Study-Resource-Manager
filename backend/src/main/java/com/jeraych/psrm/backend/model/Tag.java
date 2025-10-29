@@ -55,7 +55,7 @@ public class Tag {
     this.notes = notes;
   }
 
-  public TagDTO toDTO (Tag tag) {
+  public static TagDTO toDTO(Tag tag) {
     TagDTO dto = new TagDTO();
     dto.setTag_id(tag.getId());
     dto.setTag_name(tag.getName());

@@ -79,7 +79,7 @@ public class Note {
     tag.getNotes().remove(this);
   }
 
-  public NoteDTO toDTO(Note note) {
+  public static NoteDTO toDTO(Note note) {
     NoteDTO dto = new NoteDTO();
     dto.setNote_id(note.getId());
     dto.setNote_title(note.getTitle());

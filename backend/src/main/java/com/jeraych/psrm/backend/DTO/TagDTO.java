@@ -1,10 +1,6 @@
 package com.jeraych.psrm.backend.DTO;
 
-import com.jeraych.psrm.backend.model.Note;
-import com.jeraych.psrm.backend.model.Tag;
-
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class TagDTO {
   private long tag_id;
