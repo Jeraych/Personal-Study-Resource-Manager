@@ -1,12 +1,14 @@
 package com.jeraych.psrm.client.controller;
 
 import com.jeraych.psrm.client.model.Note;
+import com.jeraych.psrm.client.model.Tag;
 import com.jeraych.psrm.client.service.NoteService;
+import com.jeraych.psrm.client.service.TagService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 
-import java.io.IOException;
 import java.util.List;
 
 public class NoteViewController {
@@ -16,8 +18,10 @@ public class NoteViewController {
   @FXML private Button saveButton;
   @FXML private Button newButton;
   @FXML private Button deleteButton;
+  @FXML private HBox tagContainer;
 
   private final NoteService noteService = new NoteService();
+  private final TagService tagService = new TagService();
   private Note selectedNote;
 
   @FXML
@@ -50,7 +54,7 @@ public class NoteViewController {
       int selectedIndex = 0;
       String title = titleField.getText();
       String content = contentArea.getText();
-      noteService.editNote(selectedNote.getId(), title, content);
+      noteService.editNote(selectedNote.getNote_id(), title, content);
       selectedIndex = noteListView.getSelectionModel().getSelectedIndex();
       loadNotes();
       noteListView.getSelectionModel().select(selectedIndex);
@@ -69,6 +73,11 @@ public class NoteViewController {
   public void loadNotes() throws Exception {
     List<Note> noteList = noteService.getAllNotes();
     noteListView.setItems(FXCollections.observableArrayList(noteList));
+    for (Note note : noteList) {
+      for (Tag tag : tagService.findAllTags(note.getTagIds().stream().toList())) {
+        addTag(tag.getTag_name());
+      }
+    }
     noteListView.setCellFactory(listView -> new ListCell<>() {
       @Override
       protected void updateItem(Note item, boolean empty) {
@@ -76,7 +85,7 @@ public class NoteViewController {
         if (empty || item == null) {
           setText(null);
         } else {
-          setText(item.getTitle());
+          setText(item.getNote_title());
           setOnMouseClicked(event -> {
             selectedNote = item;
             loadNote(item);
@@ -87,13 +96,18 @@ public class NoteViewController {
   }
 
   public void loadNote(Note note) {
-    titleField.setText(note.getTitle());
-    contentArea.setText(note.getContent());
+    titleField.setText(note.getNote_title());
+    contentArea.setText(note.getNote_content());
     deleteButton.setVisible(true);
   }
 
   public void clearFields() {
     titleField.clear();
     contentArea.clear();
+  }
+
+  public void addTag(String tagName) {
+    Button tag = new Button(tagName);
+    tagContainer.getChildren().add(tag);
   }
 }

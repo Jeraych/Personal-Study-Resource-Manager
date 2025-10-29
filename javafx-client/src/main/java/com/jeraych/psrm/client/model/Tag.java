@@ -1,13 +1,16 @@
-package com.jeraych.psrm.backend.DTO;
+package com.jeraych.psrm.client.model;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class TagDTO {
+public class Tag {
   private long tag_id;
   private String tag_name;
   private Set<Long> noteIds =  new HashSet<>();
-  public TagDTO() {
+
+  public Tag() {}
+  public Tag(String tag_name) {
+    this.tag_name = tag_name;
   }
 
   public long getTag_id() {

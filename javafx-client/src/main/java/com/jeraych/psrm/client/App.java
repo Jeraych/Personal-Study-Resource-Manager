@@ -19,6 +19,10 @@ public class App extends Application {
 
     // Set scene to stage and show
     stage.setScene(scene);
+
+    stage.setMinHeight(400);
+    stage.setMinWidth(600);
+
     stage.setTitle("Personal Study Resource Manager");
     stage.show();
   }

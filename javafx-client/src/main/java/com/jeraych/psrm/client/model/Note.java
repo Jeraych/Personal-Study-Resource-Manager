@@ -1,39 +1,49 @@
 package com.jeraych.psrm.client.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Note {
-  private long id;
-
-  private String title;
-  private String content;
-
-  public Note(String title, String content) {
-    this.title = title;
-    this.content = content;
-  }
+  private long note_id;
+  private String note_title;
+  private String note_content;
+  private Set<Long> tagIds =  new HashSet<>();
 
   public Note() {}
-
-  public long getId() {
-    return id;
+  public Note(String note_title, String note_content) {
+    this.note_title = note_title;
+    this.note_content = note_content;
   }
 
-  public void setId(long id) {
-    this.id = id;
+  public long getNote_id() {
+    return note_id;
   }
 
-  public String getTitle() {
-    return title;
+  public void setNote_id(long note_id) {
+    this.note_id = note_id;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public String getNote_title() {
+    return note_title;
   }
 
-  public String getContent() {
-    return content;
+  public void setNote_title(String note_title) {
+    this.note_title = note_title;
   }
 
-  public void setContent(String content) {
-    this.content = content;
+  public String getNote_content() {
+    return note_content;
+  }
+
+  public void setNote_content(String note_content) {
+    this.note_content = note_content;
+  }
+
+  public Set<Long> getTagIds() {
+    return tagIds;
+  }
+
+  public void setTagIds(Set<Long> tagIds) {
+    this.tagIds = tagIds;
   }
 }
