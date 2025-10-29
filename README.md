@@ -52,4 +52,4 @@ This creates a flexible and searchable way to manage study files without changin
 
 Enter following command in terminal from the project folder
    ```bash
-   ./mvnw -pl backend spring-boot:run
+   ./mvnw clean install -pl backend spring-boot:run
