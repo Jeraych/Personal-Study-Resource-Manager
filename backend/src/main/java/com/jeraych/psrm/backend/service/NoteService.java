@@ -26,10 +26,15 @@ public class NoteService {
     Note update = noteRepository.findById(id);
     update.setTitle(note.getTitle());
     update.setContent(note.getContent());
+    update.setTags(note.getTags());
     return noteRepository.save(update);
   }
 
   public void deleteNoteById(long id) {
     noteRepository.deleteById(id);
+  }
+
+  public List<Note> findAllNotesByTagId(long id) {
+    return noteRepository.findByTagsId(id);
   }
 }

@@ -16,7 +16,7 @@ public class Note {
 
   @ManyToMany(cascade = {CascadeType.MERGE ,CascadeType.PERSIST})
   @JoinTable(
-          name = "note_tags",
+          name = "note_tag",
           joinColumns = @JoinColumn(name = "note_id"),
           inverseJoinColumns = @JoinColumn(name = "tag_id")
   )

@@ -8,7 +8,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/notes")
-@CrossOrigin
 public class NoteController {
   private final NoteService noteService;
 
@@ -35,4 +34,7 @@ public class NoteController {
   public void deleteNote(@PathVariable long id) {
     noteService.deleteNoteById(id);
   }
+
+  @GetMapping("/{tag_id}")
+  public List<Note> findByTagId(@PathVariable long tag_id) { return noteService.findAllNotesByTagId(tag_id); }
 }

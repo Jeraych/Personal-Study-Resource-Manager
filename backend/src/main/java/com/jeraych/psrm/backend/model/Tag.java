@@ -9,7 +9,7 @@ import java.util.Set;
 public class Tag {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private long id;
 
   @Column(nullable = false, unique = true)
   private String name;
@@ -23,7 +23,7 @@ public class Tag {
     this.name = name;
   }
 
-  public Long getId() {
+  public long getId() {
     return id;
   }
 
