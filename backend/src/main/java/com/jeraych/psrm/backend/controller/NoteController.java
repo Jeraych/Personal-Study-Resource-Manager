@@ -38,7 +38,7 @@ public class NoteController {
   }
 
   @GetMapping
-  public List<NoteDTO> findAllNotesByIds(@RequestParam(required = false) List<Long> id) {
+  public List<NoteDTO> findAllNotesByIds(@RequestParam(name = "id", required = false) List<Long> id) {
     if (id == null) {
       return noteService.findAllNotes();
     }

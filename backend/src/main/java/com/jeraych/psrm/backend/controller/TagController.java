@@ -24,7 +24,7 @@ public class TagController {
   public void deleteTag(@PathVariable long id) {tagService.deleteTagById(id);}
 
   @GetMapping
-  public List<TagDTO> findAllTagsByIds(@RequestParam(required = false) List<Long> id) {
+  public List<TagDTO> findAllTagsByIds(@RequestParam(name = "id", required = false) List<Long> id) {
     if (id == null) {
       return tagService.findAllTags();
     }
