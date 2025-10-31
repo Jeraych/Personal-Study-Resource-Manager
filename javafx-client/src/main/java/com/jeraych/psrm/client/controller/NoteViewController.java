@@ -9,7 +9,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class NoteViewController {
   @FXML private ListView<Note> noteListView;
@@ -23,6 +26,7 @@ public class NoteViewController {
   private final NoteService noteService = new NoteService();
   private final TagService tagService = new TagService();
   private Note selectedNote;
+  private final Set<String> selectedTags = new HashSet<>();
 
   @FXML
   public void initialize() throws Exception {
@@ -76,9 +80,41 @@ public class NoteViewController {
     noteListView.setItems(FXCollections.observableArrayList(noteList));
     for (Note note : noteList) {
       for (Tag tag : tagService.findAllTags(note.getTagIds().stream().toList())) {
-        addTag(tag.getTag_name());
+        addTag(tag.getTag_name(), tag.getTag_id());
       }
     }
+    noteListView.setCellFactory(listView -> new ListCell<>() {
+      @Override
+      protected void updateItem(Note item, boolean empty) {
+        super.updateItem(item, empty);
+        if (empty || item == null) {
+          setText(null);
+        } else {
+          setText(item.getNote_title());
+          setOnMouseClicked(event -> {
+            selectedNote = item;
+            loadNote(item);
+          });
+        }
+      }
+    });
+  }
+
+  public void loadNotesByTag() throws Exception {
+    List<Note> noteList = new ArrayList<>();
+    if (selectedTags.isEmpty()) {
+      loadNotes();
+      return;
+    } else {
+      for (String tag : selectedTags) {
+        List<Note> filteredNotes = noteService.findNotesByTagId(Long.parseLong(tag));
+        filteredNotes.removeIf(noteList::contains);
+        noteList.addAll(filteredNotes);
+      }
+    }
+
+    noteListView.setItems(FXCollections.observableArrayList(noteList));
+
     noteListView.setCellFactory(listView -> new ListCell<>() {
       @Override
       protected void updateItem(Note item, boolean empty) {
@@ -107,8 +143,24 @@ public class NoteViewController {
     contentArea.clear();
   }
 
-  public void addTag(String tagName) {
-    Button tag = new Button(tagName);
+  public void addTag(String tagName, long tag_id) {
+    ToggleButton tag = new ToggleButton(tagName);
+    tag.setId(String.valueOf(tag_id));
+    tag.setOnAction(event -> {
+      if (tag.isSelected()) {
+        selectedTags.add(tag.getId());
+      } else {
+        selectedTags.remove(tag.getId());
+      }
+      for (String tagId : selectedTags) {
+        System.out.println(tagId);
+      }
+      try {
+        loadNotesByTag();
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+    });
     tagContainer.getChildren().add(tag);
   }
 }
