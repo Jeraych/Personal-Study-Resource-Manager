@@ -1,6 +1,7 @@
 package com.jeraych.psrm.client.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Note {
@@ -45,5 +46,17 @@ public class Note {
 
   public void setTagIds(Set<Long> tagIds) {
     this.tagIds = tagIds;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Note note)) return false;
+    return Objects.equals(note_id, note.note_id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(note_id);
   }
 }
