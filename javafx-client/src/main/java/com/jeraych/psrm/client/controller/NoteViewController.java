@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
@@ -25,6 +26,8 @@ public class NoteViewController {
   @FXML private Button tagsButton;
   @FXML private ImageView deleteButton;
   @FXML private HBox tagContainer;
+
+  @FXML private AnchorPane tagPane;
 
   private final NoteService noteService = new NoteService();
   private final TagService tagService = new TagService();
@@ -79,7 +82,7 @@ public class NoteViewController {
 
   @FXML
   public void handleTags() throws IOException {
-
+    tagPane.setVisible(!tagPane.isVisible());
   }
 
   public void loadNotes() throws Exception {
