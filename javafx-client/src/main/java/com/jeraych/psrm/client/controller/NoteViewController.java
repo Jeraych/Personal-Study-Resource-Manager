@@ -72,6 +72,7 @@ public class NoteViewController {
 
   public void loadNotes() throws Exception {
     List<Note> noteList = noteService.getAllNotes();
+    tagContainer.getChildren().clear();
     noteListView.setItems(FXCollections.observableArrayList(noteList));
     for (Note note : noteList) {
       for (Tag tag : tagService.findAllTags(note.getTagIds().stream().toList())) {
