@@ -7,8 +7,10 @@ import com.jeraych.psrm.client.service.TagService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +22,8 @@ public class NoteViewController {
   @FXML private TextArea contentArea;
   @FXML private Button saveButton;
   @FXML private Button newButton;
-  @FXML private Button deleteButton;
+  @FXML private Button tagsButton;
+  @FXML private ImageView deleteButton;
   @FXML private HBox tagContainer;
 
   private final NoteService noteService = new NoteService();
@@ -72,6 +75,11 @@ public class NoteViewController {
     clearFields();
     deleteButton.setVisible(false);
     loadNotes();
+  }
+
+  @FXML
+  public void handleTags() throws IOException {
+
   }
 
   public void loadNotes() throws Exception {
