@@ -27,7 +27,11 @@ public class NoteViewController {
   @FXML private ImageView deleteButton;
   @FXML private HBox tagContainer;
 
-  @FXML private AnchorPane tagPane;
+  @FXML private AnchorPane tagControlPane;
+  @FXML private TextField tagField;
+  @FXML private Button addTagButton;
+  @FXML private Button deleteTagButton;
+  @FXML private ScrollPane tagPane;
 
   private final NoteService noteService = new NoteService();
   private final TagService tagService = new TagService();
@@ -82,7 +86,7 @@ public class NoteViewController {
 
   @FXML
   public void handleTags() throws IOException {
-    tagPane.setVisible(!tagPane.isVisible());
+    tagControlPane.setVisible(!tagControlPane.isVisible());
   }
 
   public void loadNotes() throws Exception {
