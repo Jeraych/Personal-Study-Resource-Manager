@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
@@ -31,12 +32,13 @@ public class NoteViewController {
   @FXML private TextField tagField;
   @FXML private Button addTagButton;
   @FXML private Button deleteTagButton;
-  @FXML private ScrollPane tagPane;
+  @FXML private FlowPane tagPane;
 
   private final NoteService noteService = new NoteService();
   private final TagService tagService = new TagService();
   private Note selectedNote;
   private final Set<String> selectedTags = new HashSet<>();
+  private Tag selectedTag;
 
   @FXML
   public void initialize() throws Exception {
@@ -85,8 +87,35 @@ public class NoteViewController {
   }
 
   @FXML
-  public void handleTags() throws IOException {
+  public void handleTags() throws Exception {
     tagControlPane.setVisible(!tagControlPane.isVisible());
+    loadTags();
+  }
+
+  @FXML
+  public void handleAddTag() throws Exception {
+    tagService.saveTag(tagField.getText());
+    loadNotes();
+    loadTags();
+  }
+
+  @FXML
+  public void handleDeleteTag() throws IOException {
+
+  }
+
+  public void loadTags() throws Exception {
+    List<Tag> tagList = tagService.findAllTags(selectedNote.getTagIds().stream().toList());
+    tagPane.getChildren().clear();
+    for (Tag tag : tagList) {
+      Button tagButton = new Button(tag.getTag_name());
+      tagButton.setId(String.valueOf(tag.getTag_id()));
+      tagButton.setOnAction(event -> {
+        selectedTag = tag;
+        tagField.setText(selectedTag.getTag_name());
+      });
+      tagPane.getChildren().add(tagButton);
+    }
   }
 
   public void loadNotes() throws Exception {
@@ -109,6 +138,11 @@ public class NoteViewController {
           setOnMouseClicked(event -> {
             selectedNote = item;
             loadNote(item);
+            try {
+              loadTags();
+            } catch (Exception e) {
+              throw new RuntimeException(e);
+            }
           });
         }
       }
