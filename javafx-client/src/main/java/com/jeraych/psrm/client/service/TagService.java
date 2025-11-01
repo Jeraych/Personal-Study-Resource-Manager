@@ -43,4 +43,29 @@ public class TagService {
     ObjectMapper objectMapper = new ObjectMapper();
     return objectMapper.readValue(response.body(), new TypeReference<List<Tag>>() {});
   }
+
+  public void saveTag(String tagName) throws Exception {
+    Tag tag = new Tag(tagName);
+    ObjectMapper objectMapper = new ObjectMapper();
+    String json = objectMapper.writeValueAsString(tag);
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(BASE_URL))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(json))
+            .build();
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+  }
+
+  public void deleteTag(long id) throws Exception {
+    ObjectMapper objectMapper = new ObjectMapper();
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(BASE_URL + "/" + id))
+            .header("Content-Type", "application/json")
+            .DELETE()
+            .build();
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+  }
+
 }
